@@ -3,7 +3,7 @@ import AuthPage from "../pages/AuthPage";
 import {useLoginMutation, useRegisterMutation} from "../store/api/authApi";
 import {useDispatch} from "react-redux";
 import {login} from "../store/reducer/authSlice";
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 
 const AuthForm = () => {
@@ -21,6 +21,10 @@ const AuthForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const location = useLocation();
+    // console.log(location.state)
+    //if null, just return null
+    const from = location.state?.preLocation?.pathname || '/';
     const submitHandler = (e)=>{
         e.preventDefault();
         const username = usernameInp.current.value;
@@ -35,11 +39,11 @@ const AuthForm = () => {
                     // console.log(res.data.jwt)
                     dispatch(login(
                         {
-                        token: res.data.jwt,
-                        user: res.data.user
-                    }))
+                            token: res.data.jwt,
+                            user: res.data.user
+                        }))
 
-                    navigate('/profile',{replace: true})
+                    navigate(from,{replace: true})
                 }
             });
         }else{
