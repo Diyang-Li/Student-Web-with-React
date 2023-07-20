@@ -1,14 +1,15 @@
-import React from 'react';
-import {Route, Routes, Navigate} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {Route, Routes} from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
 import AuthForm from "./components/AuthForm";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import NeedAuth from "./components/NeedAuth";
 import Profile from "./components/Profile";
+import {logout} from "./store/reducer/authSlice";
+import useAutoLogout from "./hooks/useAutoLogout";
 const App = () => {
-    const auth = useSelector(state => state.auth);
+    useAutoLogout();
     return (
         <div>
             <Layout>
