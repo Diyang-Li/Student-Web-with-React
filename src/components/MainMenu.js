@@ -28,6 +28,10 @@ const MainMenu = () => {
                             <Link to={'/profile'}>{auth.user.username}</Link>
                         </li>
                         <li>
+                            <Link to={'/student'}>Student List</Link>
+                        </li>
+
+                        <li>
                             <Link
                                 onClick={logoutHandler}
                                 to={'/auth-form'}>Logout</Link>
