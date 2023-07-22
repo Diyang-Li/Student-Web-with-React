@@ -4,7 +4,12 @@ const studentApi = createApi({
     reducerPath: 'studentApi',
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:1337/api/",
-        prepareHeaders:(headers)=>{
+        prepareHeaders:(headers,{getState})=>{
+            const token = getState().auth.token;
+            if(token){
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+
             return headers;
         }
     }),
